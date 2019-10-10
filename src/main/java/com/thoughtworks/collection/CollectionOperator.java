@@ -2,7 +2,9 @@ package com.thoughtworks.collection;
 
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class CollectionOperator {
     public List<Integer> getListByInterval(int left, int right) {
@@ -18,11 +20,15 @@ public class CollectionOperator {
     }
 
     public int popLastElment(int[] array) {
-        throw new NotImplementedException();
+        return Arrays.stream(array).reduce((a, b) -> b).getAsInt();
     }
 
     public List<Integer> popCommonElement(int[] firstArray, int[] secondArray) {
-        throw new NotImplementedException();
+        return Arrays.stream(firstArray)
+                .boxed()
+                .filter(number -> Arrays.stream(secondArray)
+                        .anyMatch(numberB -> number == numberB))
+                .collect(Collectors.toList());
     }
 
     public List<Integer> addUncommonElement(Integer[] firstArray, Integer[] secondArray) {
