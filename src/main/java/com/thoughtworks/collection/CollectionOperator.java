@@ -5,6 +5,7 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class CollectionOperator {
     public List<Integer> getListByInterval(int left, int right) {
@@ -32,6 +33,9 @@ public class CollectionOperator {
     }
 
     public List<Integer> addUncommonElement(Integer[] firstArray, Integer[] secondArray) {
-        throw new NotImplementedException();
+        return Stream.concat(Arrays.stream(firstArray),
+                Arrays.stream(secondArray))
+                .distinct()
+                .collect(Collectors.toList());
     }
 }
